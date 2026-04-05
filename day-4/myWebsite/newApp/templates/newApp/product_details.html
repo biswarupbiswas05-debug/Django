@@ -1,0 +1,120 @@
+{% extends "website/layout.html" %}
+
+{% block content %}
+
+<style>
+    .detail-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+    }
+
+    .detail-card {
+        width: 700px;
+        display: flex;
+        gap: 20px;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .detail-card img {
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .detail-info {
+        flex: 1;
+    }
+
+    .detail-title {
+        font-size: 26px;
+        font-weight: bold;
+    }
+
+    .detail-price {
+        color: green;
+        font-size: 22px;
+        margin: 10px 0;
+    }
+
+    .detail-desc {
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .status {
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-right: 10px;
+        font-weight: bold;
+    }
+
+    .cart-btn {
+        background: #007bff;
+        color: white;
+    }
+
+    .buy-btn {
+        background: #28a745;
+        color: white;
+    }
+
+    .disabled {
+        background: gray;
+        cursor: not-allowed;
+    }
+</style>
+
+<div class="detail-container">
+    <div class="detail-card">
+
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+        <div class="detail-info">
+            <div class="detail-title">{{ product.name }}</div>
+
+            <div class="detail-price">${{ product.price }}</div>
+
+            <div class="status">
+                Status: {{ product.status }}
+            </div>
+
+            <div class="detail-desc">
+                {{ product.description }}
+            </div>
+
+            <!-- Buttons -->
+            <div>
+                <button class="btn cart-btn">Add to Cart</button>
+
+                {% if product.status == 'available' %}
+                    <button class="btn buy-btn">Buy Now</button>
+                {% else %}
+                    <button class="btn buy-btn disabled" disabled>
+                        Not Available
+                    </button>
+                {% endif %}
+            </div>
+
+            <br>
+
+            <a href="{% url 'app' %}">
+                <button class="btn">⬅ Back</button>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
